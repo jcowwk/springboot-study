@@ -1,0 +1,12 @@
+<a href="/articles/new">New Article</a>
+
+<!-- model에 등록된 데이터는 #attributeName 으로 선언 후 사용 가능 -->
+{{#articleList}}
+    <tr>
+        <!-- model에 등록된 데이터 -->
+        <th>{{id}}</th>
+        <!-- title 선택 시 데이터 조회 페이지 이동 -->
+        <td><a href="articles/{{id}}">{{title}}</a></td>
+        <td>{{content}}</td>
+    </tr>
+{{/articleList}}
