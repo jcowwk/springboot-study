@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,5 +76,43 @@ public class ArticleController {
 
         // 3. view 페이지 설정
         return "articles/index";
+    }
+    
+    @PostMapping("/articles/update")
+    public String update(ArticleForm form){
+        log.info(form.toString());
+
+        // 1. DTO -> Entity
+        Article articleEntity = form.toEntity();
+
+        // 2. Entity를 db에 저장
+        // 2-1. db에 기존 데이터를 가져와
+        // 가져오려는 값이 없는 경우 null 반환
+        Article target = articleRepository.findById(articleEntity.getId()).orElse(null);
+
+        // 2-2. 기존 데이터가 있다면 값을 갱신
+        if(target != null){
+            articleRepository.save(articleEntity);
+        }
+
+        // 3. 수정 결과 페이지로 리다이렉트
+        return "redirect:/articles/" + articleEntity.getId();
+    }
+
+    @GetMapping("/articles/{id}/delete")
+    public String delete(@PathVariable Long id, RedirectAttributes rttr){
+
+        // 1. 삭제 대상을 가져와
+        Article target = articleRepository.findById(id).orElse(null);
+
+        // 2. 대상 삭제
+        if(target != null){
+            articleRepository.delete(target);
+            // 삭제 완료 메시지 출력을 위한 메소드
+            rttr.addAttribute("msg", target.getId() + "번 글이 삭제되었습니다.");
+        }
+
+        // 3. 결과 페이지로 리다이렉트
+        return "redirect:/articles";
     }
 }

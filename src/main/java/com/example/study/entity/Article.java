@@ -2,6 +2,7 @@ package com.example.study.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -9,6 +10,7 @@ import lombok.ToString;
 @Entity
 @AllArgsConstructor
 @ToString
+@Getter
 @Embeddable
 @NoArgsConstructor
 public class Article {
