@@ -47,7 +47,7 @@ public class ArticleController {
         log.info(saved.toString());
         // System.out.println(saved.toString());
 
-        return "articles/create";
+        return "redirect:/articles";
     }
 
     @GetMapping("/articles/{id}")
@@ -77,6 +77,19 @@ public class ArticleController {
         // 3. view 페이지 설정
         return "articles/index";
     }
+
+    @GetMapping("/articles/{id}/edit")
+    public String edit(@PathVariable Long id, Model model){
+
+        // 1. 수정할 대상 가져오기
+        Article editEntity = articleRepository.findById(id).orElse(null);
+
+        // 2. 가져온 데이터를 모델에 등록
+        model.addAttribute("article", editEntity);
+
+        // 3. 보여줄 페이지 설정
+        return "articles/edit";
+    }
     
     @PostMapping("/articles/update")
     public String update(ArticleForm form){
@@ -87,12 +100,14 @@ public class ArticleController {
 
         // 2. Entity를 db에 저장
         // 2-1. db에 기존 데이터를 가져와
-        // 가져오려는 값이 없는 경우 null 반환
-        Article target = articleRepository.findById(articleEntity.getId()).orElse(null);
+        if (articleEntity.getId() != null) {
+            // 가져오려는 값이 없는 경우 null 반환
+            Article target = articleRepository.findById(articleEntity.getId()).orElse(null);
 
-        // 2-2. 기존 데이터가 있다면 값을 갱신
-        if(target != null){
-            articleRepository.save(articleEntity);
+            // 2-2. 기존 데이터가 있다면 값을 갱신
+            if(target != null){
+                articleRepository.save(articleEntity);
+            }
         }
 
         // 3. 수정 결과 페이지로 리다이렉트
