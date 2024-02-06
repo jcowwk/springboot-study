@@ -20,21 +20,4 @@ public class Article {
 
     @Column
     private String content;
-
-    // @ALLArgsConstructor과 똑같은 기능
-//    public Article(Long id, String title, String content){
-//        this.id=id;
-//        this.title=title;
-//        this.content=content;
-//    }
-
-    // @ToSring과 똑같은 기능
-//    @Override
-//    public String toString() {
-//        return "Article{" +
-//                "id=" + id +
-//                ", title='" + title + '\'' +
-//                ", content='" + content + '\'' +
-//                '}';
-//    }
 }
