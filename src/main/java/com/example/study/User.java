@@ -15,12 +15,12 @@ public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(name="loginId")
     private String loginId;
-    @Column
+    @Column(name="password")
     private String password;
-    @Column
+    @Column(name="nickname")
     private String nickname;
-    @Column
+    @Column(name="role")
     private UserRole role;
 }

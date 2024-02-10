@@ -20,11 +20,11 @@ public class CookieLoginController {
     private final UserService userService;
 
     @GetMapping(value = {"", "/"})
-    public String home(@CookieValue(name = "userId", required = false) Long userId, Model model) {
+    public String home(@CookieValue(name = "userId", required = false) String userId, Model model) {
         model.addAttribute("loginType", "cookie-login");
         model.addAttribute("pageName", "쿠키 로그인");
 
-        User loginUser = userService.getLoginUserById(userId);
+        User loginUser = userService.getLoginUserByLoginId(userId);
 
         if(loginUser != null) {
             model.addAttribute("nickname", loginUser.getNickname());
