@@ -16,5 +16,4 @@ public class Member {
     private String role; //유저 권한 (일반 유저, 관리지ㅏ)
     private String provider; //공급자 (google, facebook ...)
     private String providerId; //공급 아이디
-
 }

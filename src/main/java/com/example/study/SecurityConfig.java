@@ -11,19 +11,23 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 @EnableWebSecurity
 public class SecurityConfig {
+//    private final OAuth2MemberService oAuth2MemberService;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf((crsConfig) ->
-                        crsConfig.disable()
-                )
-                .cors((corsCofig) ->
-                        corsCofig.disable())
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
+        return httpSecurity
+                .httpBasic((httpBaisc)->
+                        httpBaisc.disable())
+                .csrf((csrf)->
+                        csrf.disable())
                 .authorizeRequests()
-                .requestMatchers("/private/**").authenticated() //private로 시작하는 uri는 로그인 필수
-                .anyRequest().permitAll();
-
-        return http.build();
+                .requestMatchers("/private/**").authenticated()
+                .anyRequest().permitAll()
+                .and()
+                .oauth2Login((oauth2Login)->
+                        oauth2Login
+                                .loginPage("/loginForm")
+                                .defaultSuccessUrl("/"))
+                .build();
     }
 }
