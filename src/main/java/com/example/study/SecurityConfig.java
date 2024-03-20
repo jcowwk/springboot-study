@@ -22,6 +22,7 @@ public class SecurityConfig {
                         csrf.disable())
                 .authorizeRequests()
                 .requestMatchers("/private/**").authenticated()
+                .requestMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
                 .anyRequest().permitAll()
                 .and()
                 .oauth2Login((oauth2Login)->
