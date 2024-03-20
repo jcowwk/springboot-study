@@ -11,7 +11,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 @EnableWebSecurity
 public class SecurityConfig {
-//    private final OAuth2MemberService oAuth2MemberService;
+    private final OAuth2MemberService oAuth2MemberService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
@@ -27,7 +27,10 @@ public class SecurityConfig {
                 .oauth2Login((oauth2Login)->
                         oauth2Login
                                 .loginPage("/loginForm")
-                                .defaultSuccessUrl("/"))
+                                .defaultSuccessUrl("/")
+                                .userInfoEndpoint((userInfoEndpoint) ->
+                                        userInfoEndpoint
+                                                .userService(oAuth2MemberService)))
                 .build();
     }
 }
