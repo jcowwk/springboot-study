@@ -10,12 +10,5 @@
     <input type="file" name="multipartFile" required>
     <button type="submit">업로드</button>
 </form>
-
-<!-- 이미지 표시 -->
-<p>업로드된 이미지:</p>
-<img th:src="${fileUrl}">
-
-<!-- 파일 URL 표시 -->
-<p>파일 URL: <a th:href="${fileUrl}" target="_blank" th:text="${fileUrl}">Link</a></p>
 </body>
 </html>
