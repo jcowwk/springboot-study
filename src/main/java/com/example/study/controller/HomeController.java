@@ -24,11 +24,9 @@ public class HomeController {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping("/test/login")
-    public @ResponseBody String loginTest(Authentication authentication,
-                                          @AuthenticationPrincipal PrincipalDetails userDetails) {
+    public @ResponseBody String loginTest(Authentication authentication) {
         PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-        System.out.println("authentication: " + principalDetails.getUser());
-        System.out.println("userDetails: " + userDetails.getUser());
+        System.out.println("로그인 이메일 확인: " + principalDetails.getUser().getEmail());
         return "세션 정보 확인";
     }
 
