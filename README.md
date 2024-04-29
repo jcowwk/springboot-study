@@ -1,16 +1,8 @@
 # springboot-study
 
-👩🏻‍💻 introduction 👩🏻‍💻
-
-스프링부트 MVC패턴, JPA 등 공부 기록입니다.
-
-📚 languages & platforms 📚
-
-![html](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white) ![css](https://img.shields.io/badge/CSS-239120?&style=for-the-badge&logo=css3&logoColor=white) 
-![java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
-![spring](https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white) 
-![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)
-
-❤️‍🩹 references ❤️‍🩹
-
-https://www.youtube.com/watch?v=rzjudEZ8bt0&list=PLyebPLlVYXCiYdYaWRKgCqvnCFrLEANXt&index=9
+1. MVC 패턴
+2. CRUD(GET, POST)
+3. spring security(JWT, OAuth2 구글 로그인)
+4. 페이징 처리
+5. 파일 업로드 및 다운로드
+6. 프로필 사진 설정
