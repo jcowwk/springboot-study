@@ -1,11 +1,38 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+    <script>
+        var IMP = window.IMP;
+        IMP.init("imp36756558");
+
+        function requestPay() {
+            IMP.request_pay({
+                pg : 'kakaopay',
+                pay_method : 'card',
+                merchant_uid: "57008833-33004",
+                name : '당근 10kg',
+                amount : 1004,
+                buyer_email : 'Iamport@chai.finance',
+                buyer_name : '포트원 기술지원팀',
+                buyer_tel : '010-1234-5678',
+                buyer_addr : '서울특별시 강남구 삼성동',
+                buyer_postcode : '123-456',
+                m_redirect_url : "{리디렉션 될 URL}"
+            }, function (rsp) {
+                if (rsp.success) {
+                    // HTTP 요청
+                } else {
+                    alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
+                }
+            });
+        }
+    </script>
     <meta charset="UTF-8">
-    <title>구글 로그인</title>
+    <title>결제 기능</title>
 </head>
 <body>
-<h2>구글 로그인</h2>
-
+    <button onclick="requestPay()">카카오페이 결제하기</button>
 </body>
 </html>
