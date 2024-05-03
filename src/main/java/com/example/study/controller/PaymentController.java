@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -21,7 +22,12 @@ public class PaymentController {
     private final IamportClient iamportClient;
 
     public PaymentController() {
-        this.iamportClient = new IamportClient("REST_API_KEY", "REST_API_SECRET");
+        this.iamportClient = new IamportClient("imp.api.key", "imp.api.secretkey");
+    }
+
+    @PostMapping("/payments/complete")
+    public String complete() {
+        return "success";
     }
 
     @ResponseBody
