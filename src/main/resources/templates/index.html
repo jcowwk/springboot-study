@@ -1,36 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
-    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+    <meta charset="UTF-8">
+    <title>결제 기능</title>
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        var IMP = window.IMP;
         IMP.init("imp36756558");
 
         function requestPay() {
-            IMP.request_pay({
-                pg : 'kakaopay',
-                pay_method : 'card',
-                merchant_uid: '1234',
-                name : '당근 10kg',
-                amount : '10000',
-                buyer_email : 'Iamport@chai.finance',
-                buyer_name : '포트원 기술지원팀',
-                buyer_tel : '010-1234-5678',
-                buyer_addr : '서울특별시 강남구 삼성동',
-                buyer_postcode : '123-456',
-                m_redirect_url : '/payments/complete'
-            }, function (rsp) {
-                if (rsp.success) {
-                    console.log('성공');
-                } else {
-                    console.log('실패');
+            IMP.request_pay(
+                {
+                    pg: "kakaopay",
+                    pay_method: "card",
+                    merchant_uid: '123_12231333', // 주문 고유 번호
+                    name: "노르웨이 회전 의자",
+                    amount: 64900,
+                    buyer_email: "gildong@gmail.com",
+                    buyer_name: "홍길동",
+                    buyer_tel: "010-4242-4242",
+                    buyer_addr: "서울특별시 강남구 신사동",
+                    buyer_postcode: "01181",
+                }, function(res) {
+                    if (res.success) {
+                        axios({
+                            method: "post",
+                            url: `/portone-webhook`,
+                            data: {
+                                imp_uid: res.imp_uid,
+                                merchant_uid: res.merchant_uid,
+                                status: "paid"
+                            }
+                        }).then(function(res) {
+                                // 서버로부터의 응답 처리
+                                console.log("Payment success!");
+                                console.log("Payment ID : " + res.imp_uid);
+                                console.log("Order ID : " + res.merchant_uid);
+                                console.log("Payment Amount : " + res.amount);
+                            })
+                            .catch(function(error) {
+                                // 오류 처리
+                                console.error(error);
+                            });
+                    } else {
+                        console.error(res.error_msg);
+                    }
                 }
-            });
+            );
         }
     </script>
-    <meta charset="UTF-8">
-    <title>결제 기능</title>
 </head>
 <body>
     <button onclick="requestPay()">카카오페이 결제하기</button>
